@@ -18,6 +18,7 @@ This Terraform provider enables create, read, update, delete, and import operati
    For example, in Policy url - ```"https://www.expensify.com/policy?param={policyID:22E95AFCD33ABE2BB8}", "22E95AFCD33ABE2BB8" is Policy ID```
 
 ### API Authentication
+ *Generate credentials from an policy admin account*
 1. To authenticate API, we need a pair of credentials: partnerUserID and partnerUserSecret.<br>
 2. For this, go to https://www.expensify.com/tools/integrations/ and generate the credentials.<br>
 3. A pair of credentials: partnerUserID and partnerUserSecret will be generated and shown on the page.<br>
