@@ -37,7 +37,8 @@ func resourceEmployee() *schema.Resource{
 			},
 			"manager_email": &schema.Schema{
 				Type: schema.TypeString,
-				Required: true,
+				Optional: true,
+				Computed: true,
 				ValidateFunc: validateEmail,
 			},
 			"policy_id": &schema.Schema{
