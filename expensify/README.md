@@ -8,7 +8,7 @@
 2. go test -cover (to get idea about how much percentage of your code is tested) <br />
 3. go test ./... (to run all the test file in a particular folder) <br />
 
-//In our case we are doing acceptance testing <br />
+*In our case we are doing acceptance testing* <br />
 
 ### <strong> STEPS</strong>
 
