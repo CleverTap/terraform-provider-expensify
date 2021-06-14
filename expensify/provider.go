@@ -22,11 +22,11 @@ func Provider() *schema.Provider {
 			},
 		},
 		ResourcesMap: map[string]*schema.Resource{
-			"expensify_employee": resourceEmployee(),
+			"expensify_user": resourceUser(),
 			"expensify_policy": resourcePolicy(),
 		},
 		DataSourcesMap: map[string]*schema.Resource{
-			"expensify_employee": dataSourceEmployee(),
+			"expensify_user": dataSourceUser(),
 		},
 		ConfigureContextFunc: providerConfigure,
 	}

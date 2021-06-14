@@ -39,7 +39,7 @@ func TestExpensifyClient_NewEmployee(t *testing.T) {
 			employeesList: &EmployeesList{
 				Employees: []Employee{
 					{
-						PolicyId: "E95AFCD33ABE2BB8",
+						PolicyId: "56B042862350ADD2",
 						EmployeeEmail: "abhishiek@clevertapdemo.ml",
 						ManagerEmail: "shubham@clevertapdemo.ml",
 						EmployeeId: "1003",
@@ -49,7 +49,7 @@ func TestExpensifyClient_NewEmployee(t *testing.T) {
 				},
 			},
 			employee: &Employee{
-				PolicyId: "E95AFCD33ABE2BB8",
+				PolicyId: "56B042862350ADD2",
 				EmployeeEmail: "abhishiek@clevertapdemo.ml",
 				ManagerEmail: "shubham@clevertapdemo.ml",
 				EmployeeId: "1003",
@@ -62,7 +62,7 @@ func TestExpensifyClient_NewEmployee(t *testing.T) {
 			employeesList: &EmployeesList{
 				Employees: []Employee{
 					{
-						PolicyId: "E95AFCD33ABE2BB8",
+						PolicyId: "56B042862350ADD2",
 						EmployeeEmail: "abhishiek@clevertapdemo.ml",
 						ManagerEmail: "shubham@clevertapdemo.ml",
 						EmployeeId: "1003",
@@ -121,12 +121,12 @@ func TestExpensifyClient_GetEmployee(t *testing.T) {
 		{
 			testName: "employee exists",
 			employee: &Employee{
-				PolicyId: "E95AFCD33ABE2BB8",
+				PolicyId: "56B042862350ADD2",
 				EmployeeEmail: "abhishiek@clevertapdemo.ml",
 			},
 			expectErr: false,
 			expectedResp: &Employee{
-				PolicyId: "E95AFCD33ABE2BB8",
+				PolicyId: "56B042862350ADD2",
 				EmployeeEmail: "abhishiek@clevertapdemo.ml",
 				ManagerEmail: "shubham@clevertapdemo.ml",
 				EmployeeId: "1003",
@@ -136,7 +136,7 @@ func TestExpensifyClient_GetEmployee(t *testing.T) {
 		{
 			testName: "employee does not exist",
 			employee: &Employee{
-				PolicyId: "E95AFCD33ABE2BB8",
+				PolicyId: "56B042862350ADD2",
 				EmployeeEmail: "ashutosh@clevertapdemo.ml",
 			},
 			expectErr: true,
@@ -178,7 +178,7 @@ func TestExpensifyClient_UpdateEmployee(t *testing.T) {
 			employeesList: &EmployeesList{
 				Employees: []Employee{
 					{
-						PolicyId: "E95AFCD33ABE2BB8",
+						PolicyId: "56B042862350ADD2",
 						EmployeeEmail: "abhishiek@clevertapdemo.ml",
 						ManagerEmail: "shubham@clevertapdemo.ml",
 						EmployeeId: "1003",
@@ -188,7 +188,7 @@ func TestExpensifyClient_UpdateEmployee(t *testing.T) {
 				},
 			},
 			employee: &Employee{
-				PolicyId: "E95AFCD33ABE2BB8",
+				PolicyId: "56B042862350ADD2",
 				EmployeeEmail: "abhishiek@clevertapdemo.ml",
 				ManagerEmail: "shubham@clevertapdemo.ml",
 				EmployeeId: "1003",
@@ -201,7 +201,7 @@ func TestExpensifyClient_UpdateEmployee(t *testing.T) {
 			employeesList: &EmployeesList{
 				Employees: []Employee{
 					{
-						PolicyId: "E95AFCD33ABE2BB8",
+						PolicyId: "56B042862350ADD2",
 						EmployeeEmail: "ashutosh@clevertapdemo.ml",
 						ManagerEmail: "shubham@clevertapdemo.ml",
 						EmployeeId: "1002",
@@ -262,7 +262,7 @@ func TestExpensifyClient_ActivateEmployee(t *testing.T) {
 			employeesList: &EmployeesList{
 				Employees: []Employee{
 					{
-						PolicyId: "E95AFCD33ABE2BB8",
+						PolicyId: "56B042862350ADD2",
 						EmployeeEmail: "abhishiek@clevertapdemo.ml",
 						ManagerEmail: "shubham@clevertapdemo.ml",
 						EmployeeId: "1003",
@@ -271,7 +271,7 @@ func TestExpensifyClient_ActivateEmployee(t *testing.T) {
 				},
 			},
 			employee: &Employee{
-				PolicyId: "E95AFCD33ABE2BB8",
+				PolicyId: "56B042862350ADD2",
 				EmployeeEmail: "abhishiek@clevertapdemo.ml",
 				ManagerEmail: "shubham@clevertapdemo.ml",
 				EmployeeId: "1003",
@@ -327,7 +327,7 @@ func TestExpensifyClient_DeleteEmployee(t *testing.T) {
 			employeesList: &EmployeesList{
 				Employees: []Employee{
 					{
-						PolicyId: "E95AFCD33ABE2BB8",
+						PolicyId: "56B042862350ADD2",
 						EmployeeEmail: "abhishiek@clevertapdemo.ml",
 						ManagerEmail: "shubham@clevertapdemo.ml",
 						EmployeeId: "1003",
@@ -343,7 +343,7 @@ func TestExpensifyClient_DeleteEmployee(t *testing.T) {
 			employeesList: &EmployeesList{
 				Employees: []Employee{
 					{
-						PolicyId: "E95AFCD33ABE2BB8",
+						PolicyId: "56B042862350ADD2",
 						EmployeeEmail: "abhishiek@clevertapdemo.ml",
 						ManagerEmail: "shubham@clevertapdemo.ml",
 						EmployeeId: "1003",
@@ -403,7 +403,7 @@ func TestExpensifyClient_NewPolicy(t *testing.T) {
 			plan: "corporate",
 			expectErr: false,
 			expectedResp: &Policy{
-				Owner: "shubham@clevertapdemo.ml",
+				Owner: "shubhamj@clevertapdemo.ml",
 				PolicyName: "test create",
 				OutputCurrency: "USD",
 				Plan: "corporate",
@@ -448,12 +448,12 @@ func TestExpensifyClient_GetPolicy(t *testing.T) {
 		},
 		{
 			testName: "policy exist",
-			policyId: "E95AFCD33ABE2BB8",
+			policyId: "56B042862350ADD2",
 			expectErr: false,
 			expectedResp: &Policy{
-				PolicyId: "E95AFCD33ABE2BB8",
-				Owner: "shubham@clevertapdemo.ml",
-				PolicyName: "shubham",
+				PolicyId: "56B042862350ADD2",
+				Owner: "shubhamj@clevertapdemo.ml",
+				PolicyName: "shubhamj",
 				OutputCurrency: "INR",
 				Plan: "corporate",
 			},
@@ -484,7 +484,7 @@ func TestExpensifyClient_UpdatePolicy(t *testing.T) {
 	}{
 		{
 			testName: "update categories",
-			policyId: "717B295F75DF888B",
+			policyId: "56B042862350ADD2",
 			categories: Categories{
 				Action: "merge",
 				DataArray: []CategoriesData{
@@ -507,7 +507,7 @@ func TestExpensifyClient_UpdatePolicy(t *testing.T) {
 		},
 		{
 			testName: "update report fields",
-			policyId: "717B295F75DF888B",
+			policyId: "56B042862350ADD2",
 			reportField: ReportFields{
 				Action: "merge",
 				DataArray: []ReportFieldsData{
@@ -535,7 +535,7 @@ func TestExpensifyClient_UpdatePolicy(t *testing.T) {
 		},
 		{
 			testName: "update tags",
-			policyId: "717B295F75DF888B",
+			policyId: "56B042862350ADD2",
 			tags: Tags{
 				Source: "inline",
 				DataArray: []TagsData{

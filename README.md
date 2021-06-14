@@ -83,7 +83,7 @@ Delete the `resource` block of the user and run `terraform apply`.
 
 ### Import a User Data
 1. Write manually a `resource` configuration block for the user as shown in [example usage](#example-usage). Imported user will be mapped to this block.
-2. Run the command `terraform import expensify_employee.employee [POLICY_ID]:[EMAIL_ID]` to import user.
+2. Run the command `terraform import expensify_user.employee [POLICY_ID]:[EMAIL_ID]` to import user.
 3. Refer to [setup](#setup) for the policy ID.
 4. Run `terraform plan`, if output shows `0 to addd, 0 to change and 0 to destroy` user import is successful, otherwise recheck the employee data in `resource` block with employee data in the policy in Expensify website. 
 
@@ -105,7 +105,7 @@ provider "expensify" {
     partner_user_secret = "_REPLACE_PARTNER_USER_SECRET_" 
 }
 
-resource "expensify_employee" "employee"{
+resource "expensify_user" "employee"{
     employee_email = "employee@domain.com"
     manager_email = "manager@domain.com"
     policy_id = "22E95AFCD33ABE2BB8"
@@ -119,16 +119,16 @@ resource "expensify_employee" "employee"{
 }
 
 output "resource_employee"{
-    value = expensify_employee.employee
+    value = expensify_user.employee
 }
 
-data "expensify_employee" "employee" {
+data "expensify_user" "employee" {
     policy_id = "22E95AFCD33ABE2BB8"
     employee_email = "employee@domain.com" 
 }
 
 output "datasouce_employee"{
-    value = data.expensify_employee.employee
+    value = data.expensify_user.employee
 }
 ```
 
