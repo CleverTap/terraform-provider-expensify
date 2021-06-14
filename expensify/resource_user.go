@@ -145,7 +145,7 @@ func resourceUserRead(ctx context.Context, d *schema.ResourceData, m interface{}
 			d.SetId("")
 			diags = append(diags, diag.Diagnostic{
 				Severity: diag.Warning,
-				Summary:  "Employee does not exist. Creating a new employee with given details.",
+				Summary:  "Employee does not exist. Create a new employee with given details.",
 			})
 			return diags
 		}
