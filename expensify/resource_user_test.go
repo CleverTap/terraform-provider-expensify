@@ -32,11 +32,11 @@ func testAccCheckExpensifyUserResourceBasic() string {
 	return fmt.Sprintf(`
 	resource "expensify_user" "employee" {
 		employee_email = "abhishiek@clevertapdemo.ml"
-    	manager_email = "shubham@clevertapdemo.ml"
-    	policy_id = "56B042862350ADD2"
-    	employee_id = "1003"
-    	first_name = "Abhishiek"
-    	last_name = "Singh"
+    		manager_email = "shubham@clevertapdemo.ml"
+    		policy_id = "56B042862350ADD2"
+    		employee_id = "1003"
+    		first_name = "Abhishiek"
+    		last_name = "Singh"
 	}`)
 }
 
@@ -77,11 +77,11 @@ func testAccCheckExpensifyUserResourceUpdatePre() string {
 	return fmt.Sprintf(`
 	resource "expensify_user" "employee" {
 		employee_email = "abhishiek@clevertapdemo.ml"
-    	manager_email = "shubham@clevertapdemo.ml"
-    	policy_id = "56B042862350ADD2"
-    	employee_id = "1003"
-    	first_name = "Abhishiek"
-    	last_name = "Singh"
+    		manager_email = "shubham@clevertapdemo.ml"
+    		policy_id = "56B042862350ADD2"
+    		employee_id = "1003"
+    		first_name = "Abhishiek"
+    		last_name = "Singh"
 	}`)
 }
 
@@ -89,11 +89,11 @@ func testAccCheckExpensifyUserResourceUpdatePost() string {
 	return fmt.Sprintf(`
 	resource "expensify_user" "employee" {
 		employee_email = "abhishiek@clevertapdemo.ml"
-    	manager_email = "ashutosh@clevertapdemo.ml"
-    	policy_id = "56B042862350ADD2"
-    	employee_id = "1003"
-    	first_name = "Abhishiek"
-    	last_name = "Singh Delhi"
+    		manager_email = "ashutosh@clevertapdemo.ml"
+    		policy_id = "56B042862350ADD2"
+    		employee_id = "1003"
+    		first_name = "Abhishiek"
+    		last_name = "Singh Delhi"
 	}`)
 }
 
@@ -148,11 +148,11 @@ func testAccCheckExpensifyUserResourceCreate() string {
 	return fmt.Sprintf(`
 	resource "expensify_user" "employee" {
 		employee_email = "abhishiek@clevertapdemo.ml"
-    	manager_email = "shubham@clevertapdemo.ml"
-    	policy_id = "56B042862350ADD2"
-    	employee_id = "1003"
-    	first_name = "Abhishiek"
-    	last_name = "Singh"
+    		manager_email = "shubham@clevertapdemo.ml"
+    		policy_id = "56B042862350ADD2"
+    		employee_id = "1003"
+    		first_name = "Abhishiek"
+    		last_name = "Singh"
 	}`)
 }
 
@@ -160,11 +160,11 @@ func testAccCheckExpensifyUserResourceDeactivate() string {
 	return fmt.Sprintf(`
 	resource "expensify_user" "employee" {
 		employee_email = "abhishiek@clevertapdemo.ml"
-    	manager_email = "shubham@clevertapdemo.ml"
-    	policy_id = "56B042862350ADD2"
-    	employee_id = "1003"
-    	first_name = "Abhishiek"
-    	last_name = "Singh"
+    		manager_email = "shubham@clevertapdemo.ml"
+    		policy_id = "56B042862350ADD2"
+    		employee_id = "1003"
+    		first_name = "Abhishiek"
+    		last_name = "Singh"
 		is_terminated = true
 	}`)
 }
@@ -173,11 +173,11 @@ func testAccCheckExpensifyUserResourceActivate() string {
 	return fmt.Sprintf(`
 	resource "expensify_user" "employee" {
 		employee_email = "abhishiek@clevertapdemo.ml"
-    	manager_email = "shubham@clevertapdemo.ml"
-    	policy_id = "56B042862350ADD2"
-    	employee_id = "1003"
-    	first_name = "Abhishiek"
-    	last_name = "Singh"
+    		manager_email = "shubham@clevertapdemo.ml"
+    		policy_id = "56B042862350ADD2"
+    		employee_id = "1003"
+    		first_name = "Abhishiek"
+    		last_name = "Singh"
 		is_terminated = false
 	}`)
 }

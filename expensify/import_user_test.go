@@ -29,8 +29,8 @@ func testAccCheckExpensifyUserResourceImporterBasic() string {
 	return fmt.Sprintf(`
 	resource "expensify_user" "employee" {
 		employee_email = "abhishiek@clevertapdemo.ml"
-    	manager_email = "shubham@clevertapdemo.ml"
-    	policy_id = "56B042862350ADD2"
-    	employee_id = "1003"
+    		manager_email = "shubham@clevertapdemo.ml"
+    		policy_id = "56B042862350ADD2"
+    		employee_id = "1003"
 	}`)
 }
