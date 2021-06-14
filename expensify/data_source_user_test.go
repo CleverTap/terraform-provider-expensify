@@ -30,6 +30,6 @@ func testAccExpensifyUserDataSourceConfig() string {
 	return fmt.Sprintf(`
 	data "expensify_user" "employee" {
 		policy_id = "56B042862350ADD2"
-    	employee_email = "shubhamj@clevertapdemo.ml"
+    		employee_email = "shubhamj@clevertapdemo.ml"
 	}`)
 }
