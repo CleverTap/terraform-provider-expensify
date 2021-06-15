@@ -27,7 +27,7 @@ func resourceUser() *schema.Resource{
 		UpdateContext: resourceUserUpdate,
 		DeleteContext: resourceUserDelete,
 		Importer: &schema.ResourceImporter{
-			State: schema.ImportStatePassthrough,
+			StateContext: resourceUserImporter,
 		},
 		Schema: map[string]*schema.Schema{
 			"employee_email": &schema.Schema{
@@ -38,7 +38,6 @@ func resourceUser() *schema.Resource{
 			"manager_email": &schema.Schema{
 				Type: schema.TypeString,
 				Optional: true,
-				Computed: true,
 				ValidateFunc: validateEmail,
 			},
 			"policy_id": &schema.Schema{
@@ -73,8 +72,7 @@ func resourceUser() *schema.Resource{
 			},
 			"is_terminated": &schema.Schema{
 				Type: schema.TypeBool,
-				Optional: true,
-				Default: false,
+				Computed: true,
 			},
 			"approves_to": &schema.Schema{
 				Type: schema.TypeString,
@@ -118,26 +116,6 @@ func resourceUserRead(ctx context.Context, d *schema.ResourceData, m interface{}
 	employee := client.Employee{
 		EmployeeEmail: parts[1],
 		PolicyId: parts[0],
-	}
-	if isTerminated := d.Get("is_terminated").(bool); isTerminated==true {
-		employees := make([]client.Employee, 1)
-		employees[0].EmployeeEmail = parts[1]
-		employees[0].ManagerEmail = d.Get("manager_email").(string)
-		employees[0].PolicyId = parts[0]
-		employees[0].FirstName = d.Get("first_name").(string)
-		employees[0].LastName = d.Get("last_name").(string)
-		employees[0].EmployeeId = d.Get("employee_id").(string)
-		employees[0].ApprovalLimit = d.Get("approval_limit").(float64)
-		employees[0].OverLimitApprover = d.Get("over_limit_approver").(string)
-		employees[0].IsTerminated = false
-		employees[0].ApprovesTo = d.Get("approves_to").(string)
-		employeesList := client.EmployeesList{
-			Employees: employees,
-		}
-		err := apiClient.ActivateEmployee(&employeesList)
-		if err!=nil{
-			return diag.FromErr(err)
-		}
 	}
 	body, err := apiClient.GetEmployee(&employee)
 	if err!=nil{
@@ -192,7 +170,6 @@ func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, m interface
 	employees[0].EmployeeId = d.Get("employee_id").(string)
 	employees[0].ApprovalLimit = d.Get("approval_limit").(float64)
 	employees[0].OverLimitApprover = d.Get("over_limit_approver").(string)
-	employees[0].IsTerminated = d.Get("is_terminated").(bool)
 	employees[0].ApprovesTo = d.Get("approves_to").(string)
 	employeesList := client.EmployeesList{
 		Employees: employees,
@@ -210,15 +187,8 @@ func resourceUserDelete(ctx context.Context, d *schema.ResourceData, m interface
 	parts := resourceUserParseId(d.Id())
 	employees := make([]client.Employee, 1)
 	employees[0].EmployeeEmail = parts[1]
-	employees[0].ManagerEmail = d.Get("manager_email").(string)
 	employees[0].PolicyId = parts[0]
-	employees[0].EmployeeId = d.Get("employee_id").(string)
-	employees[0].FirstName = d.Get("first_name").(string)
-	employees[0].LastName = d.Get("last_name").(string)
 	employees[0].IsTerminated = true
-	employees[0].ApprovalLimit = d.Get("approval_limit").(float64)
-	employees[0].OverLimitApprover = d.Get("over_limit_approver").(string)
-	employees[0].ApprovesTo = d.Get("approves_to").(string)
 	employeesList := client.EmployeesList{
 		Employees: employees,
 	}
@@ -228,6 +198,28 @@ func resourceUserDelete(ctx context.Context, d *schema.ResourceData, m interface
 	}
 	d.SetId("")
 	return diags
+}
+
+func resourceUserImporter(ctx context.Context, d *schema.ResourceData, m interface{}) ([]*schema.ResourceData, error) {
+	apiClient := m.(*client.Client)
+	parts := resourceUserParseId(d.Id())
+	employee := client.Employee{
+		EmployeeEmail: parts[1],
+		PolicyId: parts[0],
+	}
+	body, err := apiClient.GetEmployee(&employee)
+	if err!=nil{
+		return nil, err
+	}
+	d.Set("employee_email", body.EmployeeEmail)
+	d.Set("manager_email", body.ManagerEmail)
+	d.Set("employee_id", body.EmployeeId)
+	d.Set("policy_id", body.PolicyId)
+	d.Set("approves_to", body.ApprovesTo)
+	d.Set("over_limit_approver", body.OverLimitApprover)
+	d.Set("approval_limit", body.ApprovalLimit)
+	d.Set("is_terminated", false)
+	return []*schema.ResourceData{d}, nil
 }
 
 func resourceUserParseId(id string) ([]string) {
