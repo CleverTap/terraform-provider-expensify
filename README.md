@@ -182,3 +182,4 @@ output "datasouce_user"{
 * Updating `first_name` and `last_name` in any one policy will automatically update them in other policies.
 * Not allowed overwriting `first_name` and `last_name` values manually set by the employee in their Expensify account.
 * To add an employee to multiple policies, write multiple `resource` block with different policy ID.
+* Once the value of any attribute is set, it cannot be set back to null through provider. But, you can set it to null via UI.
