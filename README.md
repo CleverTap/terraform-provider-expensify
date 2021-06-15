@@ -1,4 +1,4 @@
-This Terraform provider enables create, read, update, delete, and import operations for Expensify policy users. It also enables create, read and import operations for Policy.
+This Terraform provider enables create, read, update, delete, and import operations for Expensify policy users. It also enables create, read, and import operations for Policy.
 
 
 ## Requirements
