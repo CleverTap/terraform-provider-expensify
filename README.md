@@ -45,9 +45,7 @@ mkdir -p %APPDATA%/terraform.d/plugins/expensify.com/employee/expensify/1.0.0/wi
  ```
  move terraform-provider-expensify.exe %APPDATA%\terraform.d\plugins\expensify.com\employee\expensify\1.0.0\windows_amd64
  ``` 
- <p align="center">
- [OR]
- </p>
+<p align="center">[OR]</p>
  
 3. Manually move the file from current directory to destination directory (`%APPDATA%\terraform.d\plugins\expensify.com\employee\expensify\1.0.0\windows_amd64`).<br>
 
@@ -73,7 +71,6 @@ mkdir -p %APPDATA%/terraform.d/plugins/expensify.com/employee/expensify/1.0.0/wi
 ### Update the user
 1. Update the data of the user in the `resource` block as show in [example usage](#example-usage) and run the basic terraform commands to update user. 
    User is not allowed to update `employee_email` and `policy_id`.
-2. To remove a user from a policy set `is_terminated` field in `resource` block to `true` and vice versa to re-add.
 
 ### Read the User Data
 Add `data` and `output` blocks as shown in the [example usage](#example-usage) and run the basic terraform commands.
@@ -85,7 +82,20 @@ Delete the `resource` block of the user and run `terraform apply`.
 1. Write manually a `resource` configuration block for the user as shown in [example usage](#example-usage). Imported user will be mapped to this block.
 2. Run the command `terraform import expensify_user.employee [POLICY_ID]:[EMAIL_ID]` to import user.
 3. Refer to [setup](#setup) for the policy ID.
-4. Run `terraform plan`, if output shows `0 to addd, 0 to change and 0 to destroy` user import is successful, otherwise recheck the employee data in `resource` block with employee data in the policy in Expensify website. 
+4. Run `terraform plan`, if output shows `0 to addd, 0 to change and 0 to destroy` user import is successful, otherwise recheck the employee data in `resource` block with employee data in the policy in Expensify website.
+
+### Create Policy
+1. Add the `policy_name`, `plan` in the respective field in `resource` block as shown in [example usage](#example-usage).
+2. Run the basic terraform commands.<br>
+
+### Read the Policy Data
+Add `data` and `output` blocks as shown in the [example usage](#example-usage) and run the basic terraform commands.
+
+### Import a Policy Data
+1. Write manually a `resource` configuration block for the policy as shown in [example usage](#example-usage). Imported policy will be mapped to this block.
+2. Run the command `terraform import expensify_policy.policy [POLICY_ID]` to import policy.
+3. Refer to [setup](#setup) for the policy ID.
+4. Run `terraform plan`, if output shows `0 to addd, 0 to change and 0 to destroy` policy import is successful, otherwise recheck the employee data in `resource` block with policy data in Expensify website.
 
 
 ## Example Usage<a id="example-usage"></a>
@@ -105,6 +115,23 @@ provider "expensify" {
     partner_user_secret = "_REPLACE_PARTNER_USER_SECRET_" 
 }
 
+resource "expensify_policy" "policy"{
+    policy_name = "demo"
+    plan = "corporate"
+}
+
+output "resource_policy"{
+    value = expensify_policy.employee
+}
+
+data "expensify_policy" "policy" {
+    policy_id = "22E95AFCD33ABE2BB8"
+}
+
+output "datasouce_policy"{
+    value = data.expensify_policy.employee
+}
+
 resource "expensify_user" "employee"{
     employee_email = "employee@domain.com"
     manager_email = "manager@domain.com"
@@ -115,10 +142,9 @@ resource "expensify_user" "employee"{
     approves_to = "approver@domain.com"
     approval_limit = 5
     over_limit_approver = "overlimitapprover@domain.com"
-    is_terminated = false
 }
 
-output "resource_employee"{
+output "resource_user"{
     value = expensify_user.employee
 }
 
@@ -127,7 +153,7 @@ data "expensify_user" "employee" {
     employee_email = "employee@domain.com" 
 }
 
-output "datasouce_employee"{
+output "datasouce_user"{
     value = data.expensify_user.employee
 }
 ```
@@ -141,12 +167,13 @@ output "datasouce_employee"{
 * `manager_email` (Optional, String) - Manager email address.
 * `policy_id` (Required, String) - The ID of policy for which employee is to be added.
 * `first_name` (Optional, String) - First name of the employee in Expensify. 
-* `last_name` (Optional, String) - Last name of the employee in Expensify. 
-* `is_terminated` (Optional, Boolean) - If set to true, the employee will be removed from the policy.
+* `last_name` (Optional, String) - Last name of the employee in Expensify.
 * `employee_id` (Optional, String) - Unique ID of the Employee.
 * `over_limit_approver` (Optional, String) - over limit approver email address. Required if an `approval_limit` is specified.
 * `approval_limit` (Optional, Float) - Specifies limit of report total.
 * `approves_to` (Optional, String) - approver email address.
+* `policy_name` (Required, String) - Name of the policy.
+* `plan` (Optional, String) - Defines the plan for the policy. Supported values are `team` (Collect) and `corporate` (Control). Default value is `team`. 
 
 
 ## Exceptions
