@@ -19,9 +19,9 @@ This Terraform provider enables create, read, update, delete, and import operati
 
 ### API Authentication
  *Generate credentials from an policy admin account*
-1. To authenticate API, we need a pair of credentials: partnerUserID and partnerUserSecret.<br>
+1. To authenticate API, we need a pair of credentials: expensifyUserID and expensifyUserSecret.<br>
 2. For this, go to https://www.expensify.com/tools/integrations/ and generate the credentials.<br>
-3. A pair of credentials: partnerUserID and partnerUserSecret will be generated and shown on the page.<br>
+3. A pair of credentials: expensifyUserID and expensifyUserSecret will be generated and shown on the page.<br>
 
 
 ## Building The Provider
@@ -54,7 +54,7 @@ mkdir -p %APPDATA%/terraform.d/plugins/expensify.com/employee/expensify/1.0.0/wi
 
 ### Application Credential Integration in terraform
 1. Add `terraform` block and `provider` block as shown in [example usage](#example-usage).
-2. Get a pair of credentials: partnerUserID and partnerUserSecret. For this, visit https://www.expensify.com/tools/integrations/.
+2. Get a pair of credentials: expensifyUserID and expensifyUserSecret. For this, visit https://www.expensify.com/tools/integrations/.
 3. Assign the above credentials to the respective field in the `provider` block.
 
 ### Basic Terraform Commands
@@ -111,8 +111,8 @@ terraform{
 }
 
 provider "expensify" {
-    partner_user_id = "_REPLACE_PARTNER_USER_ID_"
-    partner_user_secret = "_REPLACE_PARTNER_USER_SECRET_" 
+    expensify_user_id = "_REPLACE_EXPENSIFY_USER_ID_"
+    expensify_user_secret = "_REPLACE_EXPENSIFY_USER_SECRET_" 
 }
 
 resource "expensify_policy" "policy"{
@@ -161,8 +161,8 @@ output "datasouce_user"{
 
 ## Argument Reference
 
-* `partner_user_id` (Required, String) - The Expensify Partner User ID. This may also be set via the `"PARTNER_USER_ID"` environment variable.
-* `partner_user_secret` (Required, String) - The Expensify Partner User Secret. This may also be set via the `"PARTNER_USER_SECRET"` environment variable.
+* `expensify_user_id` (Required, String) - The Expensify expensify User ID. This may also be set via the `"EXPENSIFY_USER_ID"` environment variable.
+* `expensify_user_secret` (Required, String) - The Expensify expensify User Secret. This may also be set via the `"EXPENSIFY_USER_SECRET"` environment variable.
 * `employee_email` (Required, String) - The email address of the employee.
 * `manager_email` (Optional, String) - Manager email address.
 * `policy_id` (Required, String) - The ID of policy for which employee is to be added.
