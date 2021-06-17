@@ -2,11 +2,13 @@ package expensify
 
 import (
 	"fmt"
+	"time"
 	"regexp"
 	"context"
 	"strings"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"terraform-provider-expensify/client"
 )
 
@@ -38,6 +40,7 @@ func resourceUser() *schema.Resource{
 			"manager_email": &schema.Schema{
 				Type: schema.TypeString,
 				Optional: true,
+				Computed: true,
 				ValidateFunc: validateEmail,
 			},
 			"policy_id": &schema.Schema{
@@ -100,7 +103,20 @@ func resourceUserCreate(ctx context.Context, d *schema.ResourceData, m interface
 	employeesList := client.EmployeesList{
 		Employees: employees,
 	}
-	err := apiClient.NewEmployee(&employeesList)
+	var err error
+	retryErr := resource.Retry(2*time.Minute, func() *resource.RetryError {
+		if err = apiClient.NewEmployee(&employeesList); err != nil {
+			if apiClient.IsRetry(err) {
+				return resource.RetryableError(err)
+			}
+			return resource.NonRetryableError(err)
+		}
+		return nil
+	})
+	if retryErr != nil {
+		time.Sleep(2 * time.Second)
+		return diag.FromErr(retryErr)
+	}
 	if err != nil {
 		return diag.FromErr(err)
 	}
@@ -116,9 +132,26 @@ func resourceUserRead(ctx context.Context, d *schema.ResourceData, m interface{}
 		EmployeeEmail: parts[1],
 		PolicyId: parts[0],
 	}
-	body, err := apiClient.GetEmployee(&employee)
-	if err!=nil{
-		if strings.Contains(err.Error(), "\"responseCode\":404")==true {
+	retryErr := resource.Retry(2*time.Minute, func() *resource.RetryError {
+		body, err := apiClient.GetEmployee(&employee)
+		if err != nil {
+			if apiClient.IsRetry(err) {
+				return resource.RetryableError(err)
+			}
+			return resource.NonRetryableError(err)
+		}
+		d.Set("employee_email", body.EmployeeEmail)
+		d.Set("manager_email", body.ManagerEmail)
+		d.Set("employee_id", body.EmployeeId)
+		d.Set("policy_id", body.PolicyId)
+		d.Set("approves_to", body.ApprovesTo)
+		d.Set("over_limit_approver", body.OverLimitApprover)
+		d.Set("approval_limit", body.ApprovalLimit)
+		d.Set("is_terminated", false)
+		return nil
+	})
+	if retryErr!=nil {
+		if strings.Contains(retryErr.Error(), "\"responseCode\":404")==true {
 			d.SetId("")
 			diags = append(diags, diag.Diagnostic{
 				Severity: diag.Warning,
@@ -126,16 +159,8 @@ func resourceUserRead(ctx context.Context, d *schema.ResourceData, m interface{}
 			})
 			return diags
 		}
-		return diag.FromErr(err)
+		diag.FromErr(retryErr)
 	}
-	d.Set("employee_email", body.EmployeeEmail)
-	d.Set("manager_email", body.ManagerEmail)
-	d.Set("employee_id", body.EmployeeId)
-	d.Set("policy_id", body.PolicyId)
-	d.Set("approves_to", body.ApprovesTo)
-	d.Set("over_limit_approver", body.OverLimitApprover)
-	d.Set("approval_limit", body.ApprovalLimit)
-	d.Set("is_terminated", false)
 	return diags
 }
 
@@ -173,7 +198,20 @@ func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, m interface
 	employeesList := client.EmployeesList{
 		Employees: employees,
 	}
-	err := apiClient.UpdateEmployee(&employeesList)
+	var err error
+	retryErr := resource.Retry(2*time.Minute, func() *resource.RetryError {
+		if err = apiClient.UpdateEmployee(&employeesList); err != nil {
+			if apiClient.IsRetry(err) {
+				return resource.RetryableError(err)
+			}
+			return resource.NonRetryableError(err)
+		}
+		return nil
+	})
+	if retryErr != nil {
+		time.Sleep(2 * time.Second)
+		return diag.FromErr(retryErr)
+	}
 	if err != nil {
 		return diag.FromErr(err)
 	}
@@ -191,7 +229,20 @@ func resourceUserDelete(ctx context.Context, d *schema.ResourceData, m interface
 	employeesList := client.EmployeesList{
 		Employees: employees,
 	}
-	err := apiClient.DeleteEmployee(&employeesList)
+	var err error
+	retryErr := resource.Retry(2*time.Minute, func() *resource.RetryError {
+		if err = apiClient.DeleteEmployee(&employeesList); err != nil {
+			if apiClient.IsRetry(err) {
+				return resource.RetryableError(err)
+			}
+			return resource.NonRetryableError(err)
+		}
+		return nil
+	})
+	if retryErr != nil {
+		time.Sleep(2 * time.Second)
+		return diag.FromErr(retryErr)
+	}
 	if err != nil {
 		return diag.FromErr(err)
 	}
