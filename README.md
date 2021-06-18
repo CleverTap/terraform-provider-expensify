@@ -6,7 +6,7 @@ This Terraform provider enables create, read, update, delete, and import operati
 * [Go](https://golang.org/doc/install) >= 1.16 (To build the provider plugin)<br>
 * [Terraform](https://www.terraform.io/downloads.html) >= 0.13.x <br/>
 * Application: [Expensify](https://www.expensify.com/) (API is supported in collect and control policy plans)
-* [API Documentation](https://integrations.expensify.com/Integration-Server/doc/employeeUpdater.html)
+* [Expensify API Documentation](https://integrations.expensify.com/Integration-Server/doc/employeeUpdater.html)
 
 
 ## Application Account
@@ -178,6 +178,7 @@ output "datasouce_user"{
 
 ## Exceptions
 
+* Managing user role should be done through UI.
 * Updating of the fields `manager_email`, `approves_to`, `over_limit_approver`, and `approval_limit` is meaningful only if Approval Mode for policy is Advanced Approval.
 * Updating `first_name` and `last_name` in any one policy will automatically update them in other policies.
 * Not allowed overwriting `first_name` and `last_name` values manually set by the employee in their Expensify account.
