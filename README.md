@@ -104,8 +104,8 @@ Add `data` and `output` blocks as shown in the [example usage](#example-usage) a
 terraform{
     required_providers {
         expensify = {
-            version = "1.0.0"
-            source = "expensify.com/employee/expensify"
+            version = "1.0.7"
+            source = "CleverTap/expensify"
         }
     }
 }
