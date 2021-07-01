@@ -82,7 +82,7 @@ Delete the `resource` block of the user and run `terraform apply`.
 1. Write manually a `resource` configuration block for the user as shown in [example usage](#example-usage). Imported user will be mapped to this block.
 2. Run the command `terraform import expensify_user.employee [POLICY_ID]:[EMAIL_ID]` to import user.
 3. Refer to [setup](#setup) for the policy ID.
-4. Run `terraform plan`, if output shows `0 to addd, 0 to change and 0 to destroy` user import is successful, otherwise recheck the employee data in `resource` block with employee data in the policy in Expensify website.
+4. Run `terraform plan`, if output shows `0 to add, 0 to change and 0 to destroy` user import is successful, otherwise recheck the employee data in `resource` block with employee data in the policy in Expensify website.
 
 ### Create Policy
 1. Add the `policy_name`, `plan` in the respective field in `resource` block as shown in [example usage](#example-usage).
@@ -95,7 +95,7 @@ Add `data` and `output` blocks as shown in the [example usage](#example-usage) a
 1. Write manually a `resource` configuration block for the policy as shown in [example usage](#example-usage). Imported policy will be mapped to this block.
 2. Run the command `terraform import expensify_policy.policy [POLICY_ID]` to import policy.
 3. Refer to [setup](#setup) for the policy ID.
-4. Run `terraform plan`, if output shows `0 to addd, 0 to change and 0 to destroy` policy import is successful, otherwise recheck the employee data in `resource` block with policy data in Expensify website.
+4. Run `terraform plan`, if output shows `0 to add, 0 to change and 0 to destroy` policy import is successful, otherwise recheck the employee data in `resource` block with policy data in Expensify website.
 
 
 ## Example Usage<a id="example-usage"></a>
